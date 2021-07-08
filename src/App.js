@@ -11,9 +11,9 @@ class App extends Component{
         title: 'Iam title'
       },
       list : [
-        {id:1,name:"a"},
-        {id:2,name:"b"},
-        {id:3,name:"c"},
+        {id:1,name:"first"},
+        {id:2,name:"second"},
+        {id:3,name:"third"},
       ]
     }
   }
