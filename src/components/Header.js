@@ -6,8 +6,11 @@ class Header extends Component{
 		
 		return(
 		<header>
-			<h1><a href="#">{this.props.title}</a></h1>
-			<h2>World Wide Web!</h2>
+			<h1><a href="/" onClick={function(e){
+				e.preventDefault();
+				this.props.onChangePage();
+			}.bind(this)}>{this.props.title}</a></h1>
+			<h2>{this.props.sub}</h2>
 			
 		</header>
 		)

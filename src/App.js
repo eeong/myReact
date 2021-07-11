@@ -12,7 +12,8 @@ class App extends Component{
       mode:'read',
       welcome:{title:'welcome', desc:"react!"},
       header : {
-        title: 'Iam title'
+        title: 'Iam title',
+        sub: 'i am sub'
       },
       list : [
         {id:1,name:"html"},
@@ -28,6 +29,7 @@ class App extends Component{
 
   }
   render(){
+    const onChangePage = function(){alert("hi");}
     let _title, _desc = undefined;
     if(this.state.mode === "welcome"){
       _title = this.state.welcome.title;
@@ -38,13 +40,18 @@ class App extends Component{
     }
     return(
     <div className="App">
-    {/* <Header title={this.state.header.title} ></Header> */}
-    <a href="/" onClick={function(e){
+    <Header title={this.state.header.title} sub={this.state.header.sub}
+    onChangePage={onChangePage.bind(this)}>
+    </Header>
+    {/* <a href="/" onClick={function(e){
       e.preventDefault();
       this.setState({mode:'welcome'});
     }.bind(this)
-      }>click!</a>
-    <TOC list={this.state.list}></TOC>
+      }>click!</a> */}
+    <TOC list={this.state.list}
+    onChangePage={function(){
+      alert("change")
+    }}></TOC>
     <Content lists={this.state.contents} title={_title} desc={_desc}></Content>
     </div>
   );
