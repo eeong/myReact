@@ -7,13 +7,14 @@ class TOC extends Component{
 		let data = this.props.list;
 		let showData = [];
 		for (let i =0; i < data.length; i++){
-			showData.push(<li>
+			showData.push(<li key= {data[i].id}>
 				<a key= {data[i].id} 
 				href={"/content/"+data[i].id}
-				onClick={function(e){
+				data-id = {data[i].id}
+				onClick={function(id, e){
 					e.preventDefault();
-					this.props.onChangePage();
-				}.bind(this)}>
+					this.props.onChangePage(id);
+				}.bind(this, data[i].id)}>
 					{data[i].name}
 				</a></li> );
 
