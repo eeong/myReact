@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-class Content extends Component{
+class DeleteContent extends Component{
 	
 	render(){
 	
@@ -20,4 +20,4 @@ class Content extends Component{
 	
 }
 }
-export default Content;
+export default DeleteContent;
