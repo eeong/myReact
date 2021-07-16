@@ -1,6 +1,13 @@
 import { Component } from 'react';
 
 class TOC extends Component{
+	shouldComponentUpdate(nextProps, nextState) {
+		let bol = false;
+		if(this.props !== nextProps){
+			bol = true;
+		}
+		return bol;
+	}
 	
 	render(){
 
