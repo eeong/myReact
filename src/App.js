@@ -23,57 +23,65 @@ class App extends Component{
         {id:2,title:"CSS", desc:"css is css"},
         {id:3,title:"Java Script", desc:"javascript is javascript"}
       ],
-      selectedId : 2
+      selectedId : 2,
+      max_length: 3
     }
-
   }
-  render(){
-    let _title, _desc, _article = undefined;
-    let max_length = this.state.contents.length;
 
-    const onChangePage = function(Id){
+    onChangePage(Id){
       this.setState({mode:'read', selectedId : +Id
     });}
 
-    const onChangeMode = function(_mode){
+    onChangeMode(_mode){
       this.setState({mode:_mode
     });}
 
-    const onSubmitPage = function(_title,_desc){
-      max_length += 1;
+    onSubmitPage(_title,_desc){
+      
+      let newLength = this.state.max_length +1
+      this.setState({max_length: newLength})
       let newCom = Array.from(this.state.contents);
-      newCom.push({id:max_length,title:_title,desc:_desc});
+      /* 객체 복사 Object.assign({},this.state.contents) */
+      newCom.push({id:newLength,title:_title,desc:_desc});
       this.setState({contents:newCom});
     }
 
-    if(this.state.mode === "read"){
-      let i = 0
+    readContent(){
+      let i = 0;
       while(i < this.state.contents.length){
         let data = this.state.contents[i];
         if(data.id === this.state.selectedId){
-          _title= data.title;
-          _desc = data.desc;
-          _article=<ReadContent title={_title} desc={_desc}></ReadContent>
-          break;
-        }else{
-          _title = this.state.read.title;
-          _desc = this.state.read.desc;
-          _article=<ReadContent title={_title} desc={_desc}></ReadContent>
+          return data;
+          
         }
         i = i +1;
       }
-    }else if(this.state.mode === "welcome"){
-      _title = this.state.welcome.title;
-      _desc = this.state.welcome.desc;
-      _article=<ReadContent title={_title} desc={_desc}></ReadContent>
-    }else if(this.state.mode === "create"){
-      _article=<CreateContent onSubmitPage={onSubmitPage.bind(this)}></CreateContent>
     }
+
+    getContent(){ 
+      let _title, _desc, _article = undefined;
+      if(this.state.mode === "welcome"){
+        _title = this.state.welcome.title;
+        _desc = this.state.welcome.desc;
+        _article=<ReadContent title={_title} desc={_desc}></ReadContent>
+    }else if(this.state.mode === "read"){
+        let data = this.readContent();
+        _article=<ReadContent title={data.title} desc={data.desc}></ReadContent>
+    }else if(this.state.mode === "create"){
+      _article=<CreateContent onSubmitPage={this.onSubmitPage.bind(this)}></CreateContent>
+    }else {
+
+    }
+    return _article;
+  }
+
+  render(){
+    
     
     return(
     <div className="App">
     <Header title={this.state.header.title} sub={this.state.header.sub}
-    onChangePage={onChangePage.bind(this)}>
+    onChangePage={this.onChangePage.bind(this)}>
     </Header>
     {/* <a href="/" onClick={function(e){
       e.preventDefault();
@@ -81,9 +89,9 @@ class App extends Component{
     }.bind(this)
       }>click!</a> */}
     <TOC list={this.state.contents}
-    onChangePage={onChangePage.bind(this)}></TOC>
-    <ModeList onChangeMode={onChangeMode.bind(this)}></ModeList>
-    {_article}
+    onChangePage={this.onChangePage.bind(this)}></TOC>
+    <ModeList onChangeMode={this.onChangeMode.bind(this)}></ModeList>
+    {this.getContent()}
     </div>
   );
   }

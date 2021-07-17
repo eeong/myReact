@@ -4,16 +4,28 @@ class UpdateContent extends Component{
 	
 	render(){
 	
-		let lists = this.props.lists;
-		let showContents = [];
-		for(let i = 0; i < lists.length; i++){
-			showContents.push(<h2 key={lists[i].id}>{lists[i].desc}</h2> );
-		}
 		return(
 			<div>
-				
-				<h2>{this.props.title}</h2>
-				<h4>{this.props.desc}</h4>
+				<h2>Create content!</h2>				
+				<form onSubmit={function(e){
+					e.preventDefault();
+					this.props.onSubmitPage(
+						e.target.title.value,
+						e.target.desc.value
+					)
+				}.bind(this)}
+				method="post"
+				>
+					<div>
+						<input type="text" placeholder="title" name="title"/>
+					</div>	
+					<div>
+						<textarea placeholder="desc" name="desc"/>
+					</div>	
+					<div>
+						<input type="submit" ></input>
+					</div>
+				</form>
 			</div>
 		)
 	
