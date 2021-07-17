@@ -41,8 +41,9 @@ class App extends Component{
 
     const onSubmitPage = function(_title,_desc){
       max_length += 1;
-      let _content = this.state.contents.concat({id:max_length,title:_title,desc:_desc});
-      this.setState({contents:_content});
+      let newCom = Array.from(this.state.contents);
+      newCom.push({id:max_length,title:_title,desc:_desc});
+      this.setState({contents:newCom});
     }
 
     if(this.state.mode === "read"){
