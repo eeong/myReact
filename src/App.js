@@ -5,6 +5,7 @@ import TOC from './components/TOC';
 import ModeList from './components/ModeList';
 import ReadContent from './components/ReadContent';
 import CreateContent from './components/CreateContent';
+import UpdateContent from './components/UpdateContent';
 
 
 class App extends Component{
@@ -46,6 +47,13 @@ class App extends Component{
       this.setState({contents:newCom});
     }
 
+    onUpdatePage(_title,_desc){
+      let newCom = Array.from(this.state.contents);
+      newCom[this.state.selectedId - 1].title=_title;
+      newCom[this.state.selectedId - 1].desc=_desc;
+      this.setState({contents:newCom});
+    }
+
     readContent(){
       let i = 0;
       while(i < this.state.contents.length){
@@ -69,8 +77,8 @@ class App extends Component{
         _article=<ReadContent title={data.title} desc={data.desc}></ReadContent>
     }else if(this.state.mode === "create"){
       _article=<CreateContent onSubmitPage={this.onSubmitPage.bind(this)}></CreateContent>
-    }else {
-
+    }else if(this.state.mode === "update"){
+      _article=<UpdateContent data={this.readContent()} onUpdatePage={this.onUpdatePage.bind(this)}></UpdateContent>
     }
     return _article;
   }

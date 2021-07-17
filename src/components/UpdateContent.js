@@ -6,10 +6,11 @@ class UpdateContent extends Component{
 	
 		return(
 			<div>
-				<h2>Create content!</h2>				
+				<h2>Update content!</h2>				
+							
 				<form onSubmit={function(e){
 					e.preventDefault();
-					this.props.onSubmitPage(
+					this.props.onUpdatePage(
 						e.target.title.value,
 						e.target.desc.value
 					)
@@ -17,10 +18,10 @@ class UpdateContent extends Component{
 				method="post"
 				>
 					<div>
-						<input type="text" placeholder="title" name="title"/>
+						<input type="text" name="title" defaultValue={this.props.data.title}></input>
 					</div>	
 					<div>
-						<textarea placeholder="desc" name="desc"/>
+						<textarea name="desc" defaultValue={this.props.data.desc}></textarea>
 					</div>	
 					<div>
 						<input type="submit" ></input>
