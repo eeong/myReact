@@ -26,9 +26,10 @@ class UpdateContent extends Component{
 				onSubmit={function(e){
 					e.preventDefault();
 					this.props.onUpdatePage(
+						this.state.id,
 						this.state.title,
 						this.state.desc,
-						this.state.id,
+						
 					)
 				}.bind(this)}
 				method="post"

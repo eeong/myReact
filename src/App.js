@@ -34,7 +34,18 @@ class App extends Component{
     });}
 
     onChangeMode(_mode){
-      this.setState({mode:_mode
+      if(_mode ==="delete"){
+        if(window.confirm("really?")){
+          let con = Array.from(this.state.contents);
+          for(let i = 0; i < con.length; i++){
+            if(con[i].id === this.state.selectedId){
+              con.splice(i,1);
+            }
+          }
+          this.setState({mode:'welcome', contents:con});
+        }
+      }else
+        this.setState({mode:_mode      
     });}
 
     onSubmitPage(_title,_desc){
@@ -49,22 +60,13 @@ class App extends Component{
       this.onChangeMode("read");
     }
 
-    onUpdatePage(_title,_desc){
+    onUpdatePage(_id,_title,_desc){
       let newCom = Array.from(this.state.contents);
-      newCom[this.state.selectedId - 1].title=_title;
-      newCom[this.state.selectedId - 1].desc=_desc;
+      newCom[_id - 1].title=_title;
+      newCom[_id - 1].desc=_desc;
       this.setState({contents:newCom});
       this.onChangeMode("read");
     }
-    
-    /*  onDeletePage(){
-      let newCom = Array.from(this.state.contents);
-      newCom.splice(this.state.selectedId-1,1);
-      for(let i = 0; i < newCom.length; i++){
-        newCom[i].id = i+1;
-      }
-      this.setState({contents:newCom});
-    } */
 
     readContent(){
       let i = 0;
@@ -72,7 +74,6 @@ class App extends Component{
         let data = this.state.contents[i];
         if(data.id === this.state.selectedId){
           return data;
-          
         }
         i = i +1;
       }
