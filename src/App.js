@@ -45,6 +45,8 @@ class App extends Component{
       /* 객체 복사 Object.assign({},this.state.contents) */
       newCom.push({id:newLength,title:_title,desc:_desc});
       this.setState({contents:newCom});
+      this.state.selectedId = newLength;
+      this.onChangeMode("read");
     }
 
     onUpdatePage(_title,_desc){
@@ -52,7 +54,17 @@ class App extends Component{
       newCom[this.state.selectedId - 1].title=_title;
       newCom[this.state.selectedId - 1].desc=_desc;
       this.setState({contents:newCom});
+      this.onChangeMode("read");
     }
+    
+    /*  onDeletePage(){
+      let newCom = Array.from(this.state.contents);
+      newCom.splice(this.state.selectedId-1,1);
+      for(let i = 0; i < newCom.length; i++){
+        newCom[i].id = i+1;
+      }
+      this.setState({contents:newCom});
+    } */
 
     readContent(){
       let i = 0;
@@ -79,6 +91,8 @@ class App extends Component{
       _article=<CreateContent onSubmitPage={this.onSubmitPage.bind(this)}></CreateContent>
     }else if(this.state.mode === "update"){
       _article=<UpdateContent data={this.readContent()} onUpdatePage={this.onUpdatePage.bind(this)}></UpdateContent>
+    }else if (this.state.mode === "delete"){
+      this.onDeletePage();
     }
     return _article;
   }
