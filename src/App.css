@@ -28,6 +28,31 @@
   color: #61dafb;
 }
 
+.list{
+  margin-top: 30px; text-align: left;  padding-left: 20px; padding-right: 20px;
+  cursor:pointer;
+}
+.list:hover{
+  background: lightblue;
+}
+.list span { 
+  user-select: none;
+}
+.modal{
+  margin-top: 20px;
+  padding: 20px;
+  background: #eee;
+}
+.nav {
+  background: black;
+  width: 100%;
+  display: flex;
+  color: #fff;
+  padding: 20px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
