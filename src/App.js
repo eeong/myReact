@@ -11,11 +11,10 @@ function App() {
   let [like,modyLike] = useState(0);
   let [posts,editPosts] = useState(undefined);
   let [modal,toggleModal] = useState(false);
+	let [getData, setData] = useState('');
 
-
-  function showPost(e) {
-    console.log(e.target)
-    editPosts(post[e])
+  function showPost(i) {
+    editPosts(post[i])
   }
 
   function editPost() {
@@ -29,23 +28,20 @@ function App() {
       <div className="nav">
         Blogee 
       </div>
-      <div className="list" onClick={(e)=>{showPost(0)}}>
-        <h4> { post[0] } <span onClick={()=>{modyLike(++like)}}>❤</span> {like} </h4>
-        <p>7월 30일</p>
-        <hr/>
-      </div>
-      <div className="list" onClick={(e)=>{showPost(1)}}>
-        <h4> { post[1] } </h4>
-        <p>7월 31일</p>
-        <hr/>
-      </div>
-      <div className="list" onClick={(e)=>{showPost(2)}}>
-        <h4> { post[2] } </h4>
-        <p>7월 32일</p>
-        <hr/>
-      </div>
+			{
+				post.map((v,i) => {
+					return(
+					<div className="list" key={i} onClick={(e)=>{showPost(i)}}>
+						<h4> { v } </h4>
+						<p>7월 31일</p>
+						<hr/>
+					</div>
+				)})
+			}
+		
       <button onClick={()=>{toggleModal(!modal)}}>click</button>
-      {modal === true ? <Modal post = {posts}></Modal> : null}
+			<input onChange={(e)=>{setData(e.target.value)}}/>
+      {modal === true ? <Modal post = {posts} data={getData}></Modal> : null}
     </div>
   );
 }

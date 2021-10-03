@@ -7,7 +7,7 @@ function Modal(props) {
       <div className="modal">
         <h2>{props.post}</h2>
         <p>날짜</p>
-        <p>내용</p>
+        <p>{props.data}</p>
       </div>
     
   );
